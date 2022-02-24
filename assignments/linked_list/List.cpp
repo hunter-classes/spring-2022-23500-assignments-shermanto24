@@ -65,7 +65,6 @@ void List::insert(int index, std::string data)
     Node *p = locate(index-1);
     if (p != nullptr) //p == nullptr means index is too big
     {
-      //wrong
       Node *new_node = new Node(data);
       Node *temp = p->getNext();
       p->setNext(new_node);
@@ -74,16 +73,18 @@ void List::insert(int index, std::string data)
   }
 }
 
-/*
 void List::remove(int index)
 {
   Node *p1 = locate(index-1); //before the skipped
   Node *p2 = locate(index+1); //after the skipped
+  Node *removed = locate(index);
   p1->setNext(p2);
-  delete locate(index);
+  delete removed;
+  removed = nullptr;
 }
 
-void List::~List()
+/*
+List::~List()
 {
   Node *walker = head;
 
@@ -93,4 +94,5 @@ void List::~List()
     walker = nullptr;
     walker = walker->getNext();
   }
-}*/
+}
+*/
