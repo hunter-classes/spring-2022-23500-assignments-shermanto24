@@ -5,7 +5,7 @@
 
 const int SIDE_LENGTH = 5;
 
-//create a 2d array of ints to represent the board
+//initialize the board
 void initialize_board(int** board)
 {
   for (int row = 0; row < SIDE_LENGTH; row++)
@@ -75,7 +75,6 @@ void solve(int** board, int row, int col, int counter)
   //we tried all possible cases and want to go back
   if (!is_solved(board)) //don't wanna remove when solved
     board[row][col] = 0;
-
 }
 
 bool is_solved(int** board)
