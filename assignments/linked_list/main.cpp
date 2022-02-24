@@ -24,9 +24,22 @@ int main(int argc, char *argv[])
   std::cout << "l1->locate(1)->getData() = " << p1->getData() << '\n';
   std::cout << "l1->locate(2)->getData() = " << p2->getData() << '\n';
 
+  //does not work
   std::cout << "\nTesting insert(index, data)" << '\n';
   l1->insert(2, "d");
+  std::cout << "After insert(2, \"d\")" << '\n';
   std::cout << l1->toString() << '\n';
-  std::cout << l1->locate(2)->getData() << '\n';
-  std::cout << l1->locate(0)->getData() << '\n';
+  l1->insert(1, "e");
+  
+  std::cout << l1->toString() << '\n';
+
+
+  std::cout << "\n " << '\n';
+
+  std::cout << "(Doesn't work) Testing remove(index)\n" << '\n';
+  //l1->remove(1);
+  //std::cout << l1->toString() << '\n';
+
+  //std::cout << "\nTesting destructor" << '\n';
+  //delete l1;
 }
