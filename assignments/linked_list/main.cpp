@@ -43,6 +43,8 @@ int main(int argc, char *argv[])
   std::cout << "After remove(3)" << '\n';
   std::cout << l1->toString() << '\n';
 
-  //std::cout << "\nTesting destructor" << '\n';
-  //delete l1;
+  std::cout << "\nTesting destructor" << '\n';
+  delete l1;
+  std::cout << "After delete l1, calling toString() results in an error" << '\n';
+  //std::cout << l1->toString() << '\n';
 }

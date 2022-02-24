@@ -83,16 +83,15 @@ void List::remove(int index)
   removed = nullptr;
 }
 
-/*
 List::~List()
 {
   Node *walker = head;
 
   while (walker != nullptr)
   {
-    delete walker;
-    walker = nullptr;
+    Node *to_delete = walker;
+    delete to_delete;
+    to_delete = nullptr;
     walker = walker->getNext();
   }
 }
-*/
