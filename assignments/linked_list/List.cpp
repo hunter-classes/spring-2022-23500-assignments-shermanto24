@@ -35,3 +35,23 @@ std::string List::toString()
   s = s + "nullptr";
   return s;
 }
+
+//----------------- MY CODE -----------------
+
+Node* List::locate(int index)
+{
+  Node *walker = head;
+  int currPos = 0;
+
+  while (walker != nullptr)
+  {
+    if (currPos == index)
+      return walker;
+    else
+    {
+      currPos++;
+      walker = walker->getNext();
+    }
+  }
+  return walker;
+}
