@@ -13,7 +13,7 @@ void List::insert(std::string data)
 
   //insert the new node
   new_node->setNext(head);
-  head = new_node; //head doesn't have a next?
+  head = new_node; //head doesn't have a next? / it's always nullptr
                    //so we can't do head->setNext(new_node)
 }
 
@@ -54,4 +54,20 @@ Node* List::locate(int index)
     }
   }
   return walker;
+}
+
+void List::insert(int index, std::string data)
+{
+  if (index <= 0)
+    insert(data);
+  else
+  {
+    Node *p = locate(index-1);
+    if (p != nullptr) //p == nullptr means index is too big
+    {
+      Node *new_node = new Node(data);
+      new_node->setNext(p);
+      p = new_node;
+    }
+ }
 }
