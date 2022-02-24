@@ -3,8 +3,10 @@
 
 int main()
 {
-  initialize_board(5);
-  print_board();
-
-  free_memory();
+  int** board = new int*[5];
+  initialize_board(board);
+  //print_board(board);
+  solve(board, 4, 0, 1);
+  print_board(board);
+  free_memory(board);
 }
