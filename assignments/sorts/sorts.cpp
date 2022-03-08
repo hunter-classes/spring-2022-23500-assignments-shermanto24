@@ -168,4 +168,13 @@ int main()
   v2 = msort(v2);
   std::cout << "After msort, v2 = ";
   print_vector(v2);
+
+  //testing with a size less than 2
+  std::cout << "\nWith a size less than 2:" << '\n';
+  std::vector<int> v3 = {1};
+  std::cout << "Before msort, v3 = ";
+  print_vector(v3);
+  v3 = msort(v3);
+  std::cout << "After msort, v3 = ";
+  print_vector(v3);
 }
