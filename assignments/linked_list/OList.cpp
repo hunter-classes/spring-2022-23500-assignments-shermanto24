@@ -25,11 +25,20 @@ void OList::insert(int value)
   ONode *walker = head;
   ONode *trailer = nullptr;
 
+  //if we have no elements
+  if (walker == nullptr)
+  {
+    tmp->setNext(head);
+    head = tmp;
+    walker = nullptr;
+  }
+
+  //the OList has at least 1 element
   while (walker != nullptr)
   {
     //value should be inserted:
     //at the beginning
-    if (walker == head && value <= walker->getData())
+    if (trailer == nullptr && value <= walker->getData())
     {
       tmp->setNext(head);
       head = tmp;
@@ -40,15 +49,25 @@ void OList::insert(int value)
       walker->setNext(tmp);
       walker = nullptr;
     }
+    else if (trailer == nullptr) //to avoid trying to get trailer's data
+    {
+      trailer = walker; //if we are on our first iteration
+      walker = walker->getNext();
+    }
     else //somewhere in between
     {
       int prev_val = trailer->getData();
-      int next_val = walker->getNext()->getData();
+      int next_val = walker->getData();
       if (prev_val <= value && value <= next_val)
       {
         tmp->setNext(walker);
-        trailer = tmp;
+        trailer->setNext(tmp);
         walker = nullptr;
+      }
+      else
+      {
+        trailer = walker;
+        walker = walker->getNext();
       }
     }
   }
@@ -56,13 +75,14 @@ void OList::insert(int value)
 
 std::string OList::toString()
 {
-  std::string result;
+  std::string result = "";
   ONode *walker = head;
   while (walker != nullptr)
   {
-    result += walker->getData() + "->";
+    result += std::to_string(walker->getData()) + " --> ";
     walker = walker->getNext();
   }
+  result += "nullptr";
   return result;
 }
 
