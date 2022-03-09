@@ -20,7 +20,38 @@ OList::~OList()
 
 void OList::insert(int value)
 {
+  ONode *tmp = new ONode(value);
 
+  ONode *walker = head;
+  ONode *trailer = nullptr;
+
+  while (walker != nullptr)
+  {
+    //value should be inserted:
+    //at the beginning
+    if (walker == head && value <= walker->getData())
+    {
+      tmp->setNext(head);
+      head = tmp;
+      walker = nullptr;
+    }
+    else if (walker->getNext() == nullptr && value >= walker->getData()) //at the end
+    {
+      walker->setNext(tmp);
+      walker = nullptr;
+    }
+    else //somewhere in between
+    {
+      int prev_val = trailer->getData();
+      int next_val = walker->getNext()->getData();
+      if (prev_val <= value && value <= next_val)
+      {
+        tmp->setNext(walker);
+        trailer = tmp;
+        walker = nullptr;
+      }
+    }
+  }
 }
 
 std::string OList::toString()
