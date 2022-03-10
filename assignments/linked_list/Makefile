@@ -1,24 +1,28 @@
-OBJECTS=main.o List.o Node.o OList.o ONode.o
-CXXFLAGS=
-LDFLAGS=
-CXX=g++
-
 main: main.o List.o Node.o OList.o ONode.o
-	$(CXX) -o main $(OBJECTS)
+	g++ -o main main.o List.o Node.o OList.o ONode.o
+
+tests: tests.o OList.o ONode.o
+	g++ -o tests tests.o OList.o ONode.o
 
 
-main.o: main.cpp List.h
+main.o: main.cpp OList.h
+	g++ -c main.cpp
+
+tests.o: tests.cpp OList.h
+	g++ -c tests.cpp
 
 
-List.o: List.cpp List.h Node.h
-
-Node.o: Node.cpp Node.h
+# List.o: List.cpp List.h Node.h
+#
+# Node.o: Node.cpp Node.h
 
 
 OList.o: OList.cpp OList.h ONode.h
+	g++ -c OList.cpp
 
 ONode.o: ONode.cpp ONode.h
+	g++ -c ONode.cpp
 
 
 clean:
-	rm -f $(OBJECTS)
+	rm -f *o main tests

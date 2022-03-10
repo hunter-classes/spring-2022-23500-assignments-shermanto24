@@ -1,5 +1,6 @@
 #pragma once
 #include "ONode.h"
+#include <iostream>
 
 class OList
 {
