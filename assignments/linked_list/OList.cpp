@@ -114,7 +114,31 @@ int OList::get(int loc)
 
 void OList::remove(int loc)
 {
+  ONode *walker = head;
+  ONode *trailer = nullptr;
 
+  while (loc > 0 && walker != nullptr)
+  {
+    trailer = walker;
+    walker = walker->getNext();
+    loc--;
+  }
+
+  //trying to remove past the last element
+  if (walker == nullptr || loc < 0)
+    throw std::out_of_range("out of range");
+
+  //removing the 0th element
+  if (trailer == nullptr)
+  {
+    head = walker->getNext();
+    delete walker;
+  }
+  else
+  {
+    trailer->setNext(walker->getNext());
+    delete walker;
+  }
 }
 
 void OList::reverse()

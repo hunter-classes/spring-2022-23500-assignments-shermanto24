@@ -71,3 +71,22 @@ TEST_CASE("get(loc): invalid index")
   CHECK(l1->get(7) == 0);
   CHECK(l1->get(100) == 0);
 }
+
+TEST_CASE("remove(loc) tests")
+{
+  //at the beginning
+  l1->remove(0);
+  CHECK(l1->toString() == "head --> 1 --> 2 --> 3 --> 4 --> 7 --> 10 --> nullptr");
+
+  //at the end
+  l1->remove(5);
+  CHECK(l1->toString() == "head --> 1 --> 2 --> 3 --> 4 --> 7 --> nullptr");
+
+  //in between
+  l1->remove(2);
+  CHECK(l1->toString() == "head --> 1 --> 2 --> 4 --> 7 --> nullptr");
+
+  //out of range
+  //l1->remove(-1);
+  //l1->remove(4);
+}
