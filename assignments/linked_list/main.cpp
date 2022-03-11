@@ -36,4 +36,6 @@ int main(int argc, char *argv[])
   l1->reverse();
   std::cout << "After l1->reverse()" << '\n';
   std::cout << "l1 = " << l1->toString() << '\n';
+
+  delete l1;
 }

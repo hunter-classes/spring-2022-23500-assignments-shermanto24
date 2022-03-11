@@ -107,7 +107,9 @@ TEST_CASE("reverse() tests")
   l1->insert(7);
   l1->insert(8);
   CHECK(l1->toString() == "head --> 6 --> 7 --> 8 --> 9 --> nullptr");
-  
+
   l1->reverse();
   CHECK(l1->toString() == "head --> 9 --> 8 --> 7 --> 6 --> nullptr");
+
+  delete l1;
 }
