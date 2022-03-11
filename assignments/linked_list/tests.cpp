@@ -1,7 +1,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
 #include "OList.h"
-//#include <iostream>
 
 OList *l1 = new OList();
 
@@ -89,4 +88,26 @@ TEST_CASE("remove(loc) tests")
   //out of range
   //l1->remove(-1);
   //l1->remove(4);
+}
+
+TEST_CASE("reverse() tests")
+{
+  l1->reverse();
+  CHECK(l1->toString() == "head --> 7 --> 4 --> 2 --> 1 --> nullptr");
+
+  //emptying the list
+  l1->remove(0);
+  l1->remove(0);
+  l1->remove(0);
+  l1->remove(0);
+
+  //adding elements
+  l1->insert(9);
+  l1->insert(6);
+  l1->insert(7);
+  l1->insert(8);
+  CHECK(l1->toString() == "head --> 6 --> 7 --> 8 --> 9 --> nullptr");
+  
+  l1->reverse();
+  CHECK(l1->toString() == "head --> 9 --> 8 --> 7 --> 6 --> nullptr");
 }

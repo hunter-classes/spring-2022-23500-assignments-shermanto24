@@ -143,5 +143,16 @@ void OList::remove(int loc)
 
 void OList::reverse()
 {
+  ONode *trailer = nullptr;
+  ONode *walker = head;
+  ONode *after;
 
+  while (walker != nullptr)
+  {
+    after = walker->getNext();
+    walker->setNext(trailer);
+    trailer = walker;
+    walker = after;
+  }
+  head = trailer;
 }

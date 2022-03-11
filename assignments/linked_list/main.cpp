@@ -27,4 +27,13 @@ int main(int argc, char *argv[])
   l1->remove(2);
   std::cout << "After l1->remove(2)" << '\n';
   std::cout << "l1 = " << l1->toString() << '\n';
+
+  l1->insert(1);
+  l1->insert(4);
+  std::cout << "\nAfter inserting 1 and 4" << '\n';
+  std::cout << "l1 = " << l1->toString() << '\n';
+
+  l1->reverse();
+  std::cout << "After l1->reverse()" << '\n';
+  std::cout << "l1 = " << l1->toString() << '\n';
 }
