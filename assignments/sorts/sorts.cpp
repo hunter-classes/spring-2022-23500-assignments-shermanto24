@@ -14,7 +14,6 @@ void print_vector(std::vector<int> a)
   std::cout << "\n";
 }
 
-
 int find_min_index(std::vector<int> a, int start_index, int stop_index)
 {
   int min_index = start_index;
@@ -118,37 +117,104 @@ std::vector<int> msort(std::vector<int> v)
   }
 }
 
+// from classcode
+std::vector<int> qsort(std::vector<int> &list){
+
+  int i,j;
+
+  // base case
+  if (list.size() <= 1){
+    return list;
+  }
+
+  // select a pivot value.
+  // for now, just pick list[0]
+  int pivot = list[0];
+
+  // make 2 new vectors
+  std::vector<int> lower,higher;
+
+  // copy all the values < pivot value to lower
+  // copy all the values >= pivot value to higher;
+  for (i=1; i < list.size(); i++){
+    if (list[i] < pivot){
+      lower.push_back(list[i]);
+    } else {
+      higher.push_back(list[i]);
+    }
+  }
+
+  lower = qsort(lower);
+  higher = qsort(higher);
+
+  // copy everything back into list
+  for (i=0 ; i < lower.size(); i++){
+    list[i]=lower[i];
+  }
+
+  list[i] = pivot;
+  i++;
+
+  for (j=0;j<higher.size();j++){
+    list[i] = higher[j];
+    i++;
+  }
+
+  // return the sorted list
+  return list;
+}
+
+// in-place quick sort
+void in_place_qsort(std::vector<int> &list, int l, int h)
+{
+  // base case
+  // there is a chance that l > h
+  if (l >= h)
+    return;
+
+  int pivot = list[l]; // will change later
+  // we want to keep the parameters as the initial bounds
+  int i = l; // like walkers
+  int j = h;
+
+  // while j is still on the high side
+  // and i is still on the low side
+  // or they're equal -> we want to change them
+  while (j >= i)
+  {
+    // changing i and j so that
+    // list[i] and list[j] are ready to swap
+    while (list[i] < pivot)
+      i++;
+
+    while (list[j] > pivot)
+      j--;
+
+    // we only want to swap when the values of i and j
+    // still belong to the low and high sides respectively
+    // this also handles whether or not i and j go out of bounds
+    // if i = j, we still want to enter this if statement
+    // so that their values get changed
+    // and we exit the big while loop
+    if (j >= i)
+    {
+      int temp = list[i];
+      list[i] = list[j];
+      list[j] = temp;
+      i++;
+      j--;
+    }
+  }
+
+  // we don't touch the pivot anymore
+  // bc it's in its correct location
+  in_place_qsort(list, l, j);
+  in_place_qsort(list, i, h);
+}
+
 int main()
 {
   /*
-  int size=20;
-  int max_val=100;
-
-  srand(time(nullptr));
-  std::vector<int> a(size);
-  int i;
-  for (i = 0; i < size; i++)
-    a[i] = rand()%max_val;
-  */
-
-  /*
-    print_vector(a);
-  std::cout << "\n";
-  a = ssort(a);
-  print_vector(a);
-  */
-
-  /*
-  std::vector<int> left = {1, 2, 5, 6, 10, 15};
-  std::vector<int> right = {3, 7, 8, 12, 16, 19, 20};
-  print_vector(left);
-  print_vector(right);
-  std::vector<int> m = merge(left,right);
-  print_vector(m);
-  return 0;
-  */
-
-  //my code
   std::cout << "\nTesting msort\n" << '\n';
 
   //testing with an even size
@@ -177,4 +243,10 @@ int main()
   v3 = msort(v3);
   std::cout << "After msort, v3 = ";
   print_vector(v3);
+  */
+
+  // testing in-place qsort
+  std::vector<int> a = {6, 5, 7, 4, 1, 6};
+  in_place_qsort(a, 0, a.size());
+  print_vector(a);
 }
