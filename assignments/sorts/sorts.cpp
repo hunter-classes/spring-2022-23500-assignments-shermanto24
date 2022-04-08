@@ -117,26 +117,58 @@ std::vector<int> msort(std::vector<int> v)
   }
 }
 
-// from classcode
-std::vector<int> qsort(std::vector<int> &list){
+// from classcode (+ added pivot option)
+std::vector<int> bad_qsort(std::vector<int> &list, bool good_pivot){
 
   int i,j;
+  int size = list.size();
 
   // base case
-  if (list.size() <= 1){
+  if (size <= 1){
     return list;
   }
 
-  // select a pivot value.
-  // for now, just pick list[0]
-  int pivot = list[0];
+  int pivot;
+  int piv_index = 0;
+  if (!good_pivot)
+    pivot = list[0];
+  else
+  {
+    int first = list[0];
+    int last = list[size - 1];
+    int mid = list[size / 2];
+
+    if ((first >= mid && mid >= last) || (last >= mid && mid >= first))
+    {
+      pivot = mid;
+      piv_index = size / 2;
+    }
+    else if ((mid >= first && first >= last) || (last >= first && first >= mid))
+      pivot = first;
+    else
+    {
+      pivot = last;
+      piv_index = size - 1;
+    }
+  }
 
   // make 2 new vectors
   std::vector<int> lower,higher;
 
   // copy all the values < pivot value to lower
   // copy all the values >= pivot value to higher;
-  for (i=1; i < list.size(); i++){
+  if (good_pivot)
+    i = 0; // we don't want to skip the first element
+  else
+    i = 1;
+
+  for (i=i; i < size; i++){
+    if (good_pivot && i == piv_index)
+    {
+      i++;
+      if (i >= size)
+        break;
+    }
     if (list[i] < pivot){
       lower.push_back(list[i]);
     } else {
@@ -144,10 +176,11 @@ std::vector<int> qsort(std::vector<int> &list){
     }
   }
 
-  lower = qsort(lower);
-  higher = qsort(higher);
+  lower = bad_qsort(lower, good_pivot);
+  higher = bad_qsort(higher, good_pivot);
 
   // copy everything back into list
+
   for (i=0 ; i < lower.size(); i++){
     list[i]=lower[i];
   }
@@ -165,14 +198,33 @@ std::vector<int> qsort(std::vector<int> &list){
 }
 
 // in-place quick sort
-void in_place_qsort(std::vector<int> &list, int l, int h)
+// Ivan Rao helped me with the code for this function.
+void in_place_qsort(std::vector<int> &list, int l, int h, bool good_pivot)
 {
   // base case
   // there is a chance that l > h
   if (l >= h)
     return;
 
-  int pivot = list[l]; // will change later
+  //print_vector(list);
+
+  int pivot;
+  if (!good_pivot)
+    pivot = list[l];
+  else
+  {
+    int first = list[l];
+    int last = list[h];
+    int mid = list[(h - l) / 2 + l];
+
+    if ((first >= mid && mid >= last) || (last >= mid && mid >= first))
+      pivot = mid;
+    else if ((mid >= first && first >= last) || (last >= first && first >= mid))
+      pivot = first;
+    else
+      pivot = last;
+  }
+
   // we want to keep the parameters as the initial bounds
   int i = l; // like walkers
   int j = h;
@@ -208,8 +260,33 @@ void in_place_qsort(std::vector<int> &list, int l, int h)
 
   // we don't touch the pivot anymore
   // bc it's in its correct location
-  in_place_qsort(list, l, j);
-  in_place_qsort(list, i, h);
+  in_place_qsort(list, l, j, good_pivot);
+  in_place_qsort(list, i, h, good_pivot);
+}
+
+void test(char type, bool print, std::vector<int> list, bool good_pivot)
+{
+  std::vector<int> result(list.size());
+
+  struct timeval tp;
+  gettimeofday(&tp,NULL);
+  long start_time = tp.tv_sec *1000 + tp.tv_usec / 1000;
+
+  if (type == 'm') //msort
+    list = msort(list);
+  else if (type == 'b') //bad_qsort
+    list = bad_qsort(list, good_pivot);
+  else if (type == 'i') //in_place_qsort
+    in_place_qsort(list, 0, list.size() - 1, good_pivot);
+
+  if (print)
+    print_vector(list);
+
+  gettimeofday(&tp,NULL);
+  long current_time = tp.tv_sec *1000 + tp.tv_usec / 1000;
+
+  long elapsed = current_time - start_time;
+  std::cout << "type = " << type << ", time: " << elapsed << '\n';
 }
 
 int main()
@@ -245,8 +322,135 @@ int main()
   print_vector(v3);
   */
 
-  // testing in-place qsort
-  std::vector<int> a = {6, 5, 7, 4, 1, 6};
-  in_place_qsort(a, 0, a.size());
+  int max_val = 100;
+  int size = 10;
+  int i;
+
+  // testing on randomized data
+  std::cout << "----- TESTING ON RANDOMIZED DATA -----" << '\n';
+  srand(time(nullptr));
+
+  // tiny data set
+  std::cout << "\n-- Tiny data set (size = 10) --\n" << '\n';
+
+  std::vector<int> a(size);
+  for (i = 0; i < size; i++)
+    a[i] = rand() % max_val;
+
+  std::cout << "a = ";
   print_vector(a);
+
+  std::cout << "\nmsort(a): a = ";
+  test('m', 1, a, 0);
+
+  std::cout << "\nWith bad pivot:" << '\n';
+  std::cout << "bad_qsort(a): a = ";
+  test('b', 1, a, 0);
+  std::cout << "in_place_qsort: a = ";
+  test('i', 1, a, 0);
+
+  std::cout << "\nWith good pivot:" << '\n';
+  std::cout << "bad_qsort(a): a = ";
+  test('b', 1, a, 1);
+  std::cout << "in_place_qsort: a = ";
+  test('i', 1, a, 1);
+
+  // small data
+  std::cout << "\n-- Small data set (size = 10,000) --\n" << '\n';
+
+  size = 10000;
+  std::vector<int> b(size);
+  for (i = 0; i < size; i++)
+    b[i] = rand() % max_val;
+
+  test('m', 0, b, 0);
+  std::cout << "\nWith bad pivot:" << '\n';
+  test('b', 0, b, 0);
+  test('i', 0, b, 0);
+  std::cout << "\nWith good pivot:" << '\n';
+  test('b', 0, b, 1);
+  test('i', 0, b, 1);
+
+  // big data
+  std::cout << "\n-- Big data set (size = 100,000) --\n" << '\n';
+
+  size = 100000;
+  std::vector<int> c(size);
+  for (i = 0; i < size; i++)
+    c[i] = rand() % max_val;
+
+  //test('m', 0, c, 0);
+  // std::cout << "\nWith bad pivot:" << '\n';
+  // test('b', 0, c, 0);
+  // test('i', 0, c, 0);
+  std::cout << "\nWith good pivot:" << '\n';
+  //test('b', 0, c, 1);
+  test('i', 0, c, 1);
+
+  // bigger data
+  std::cout << "\n-- Bigger data set (size = 1,000,000) --\n" << '\n';
+
+  size = 1000000;
+  std::vector<int> d(size);
+  for (i = 0; i < size; i++)
+    d[i] = rand() % max_val;
+
+  //test('m', 0, d, 0);
+  // std::cout << "\nWith bad pivot:" << '\n';
+  // test('b', 0, d, 0);
+  // test('i', 0, d, 0);
+  std::cout << "With good pivot:" << '\n';
+  //test('b', 0, d, 1);
+  test('i', 0, d, 1);
+
+  // testing on sorted data
+  std::cout << "\n----- TESTING ON SORTED DATA -----" << '\n';
+
+  // small data
+  std::cout << "\n-- Small data set (size = 10,000) --\n" << '\n';
+
+  size = 10000;
+  std::vector<int> e(size);
+  for (int i = 0; i < size; i++)
+    e[i] = i;
+
+  test('m', 0, e, 0);
+  // std::cout << "\nWith bad pivot:" << '\n';
+  // test('b', 0, e, 0);
+  // test('i', 0, e, 0);
+  std::cout << "\nWith good pivot:" << '\n';
+  test('b', 0, e, 1);
+  test('i', 0, e, 1);
+
+  // big data
+  std::cout << "\n-- Big data set (size = 100,000) --\n" << '\n';
+
+  size = 100000;
+  std::vector<int> f(size);
+  for (i = 0; i < size; i++)
+    f[i] = i;
+
+  //test('m', 0, f, 0);
+  // std::cout << "\nWith bad pivot:" << '\n';
+  // test('b', 0, c, 0);
+  // test('i', 0, c, 0);
+  std::cout << "\nWith good pivot:" << '\n';
+  test('b', 0, f, 1);
+  test('i', 0, f, 1);
+
+  // bigger data
+  std::cout << "\n-- Bigger data set (size = 1,000,000) --\n" << '\n';
+
+  size = 1000000;
+  std::vector<int> g(size);
+  for (i = 0; i < size; i++)
+    g[i] = i;
+
+  //test('m', 0, g, 0);
+  // std::cout << "\nWith bad pivot:" << '\n';
+  // test('b', 0, d, 0);
+  // test('i', 0, d, 0);
+  std::cout << "With good pivot:" << '\n';
+  //test('b', 0, g, 1);
+  test('i', 0, g, 1);
 }
