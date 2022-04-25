@@ -27,19 +27,9 @@ void Stack::push(std::string str)
   }
   */
   Node *new_node = new Node(str);
-
-  if (head == nullptr) // empty
-  {
-    new_node->setNext(head); //new_node-->nullptr
-    head = new_node; //head-->new_node-->nullptr
-  }
-  else //fix this
-  {
-    Node *next = head->getNext();
-    head->setNext(new_node);
-    new_node->setNext(next);
-  }
-  //
+  new_node->setNext(head); //head-->...-->nullptr
+                           //new_node-^
+  head = new_node; //head-->new_node-->...-->nullptr
 }
 
 // remove and return the top item
@@ -48,12 +38,11 @@ std::string Stack::pop()
   if (is_empty())
     throw STACK_ERR_EMPTY;
 
-  Node *top = head->getNext();
-  Node *next = top->getNext();
-  std::string top_str = top->getData();
-  head->setNext(next);
-  delete top;
-  return top_str;
+  Node *node_to_remove = head;
+  std::string removed_data = node_to_remove->getData();
+  head = head->getNext();
+  delete node_to_remove;
+  return removed_data;
 }
 
 // return but do not remove the top item
