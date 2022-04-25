@@ -33,26 +33,22 @@ TEST_CASE("Testing pop: good cases")
 
 TEST_CASE("Testing top and pop exceptions")
 {
-  bool worked = false;
   try
   {
     s->pop();
-    worked = true;
   }
   catch (int e)
   {
-    CHECK(worked == false);
+    CHECK(e == 1); //STACK_ERR_EMPTY = 1
   }
 
-  worked = false;
   try
   {
     s->top();
-    worked = true;
   }
   catch (int e)
   {
-    CHECK(worked == false);
+    CHECK(e == 1); //STACK_ERR_EMPTY = 1
   }
 
   delete s;
