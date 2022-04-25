@@ -50,4 +50,6 @@ int main()
   {
     std::cout << "Tried to call s->pop(), but s->empty() == " << std::boolalpha << s->is_empty() << '\n';
   }
+
+  delete s;
 }
