@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Stack.h"
+#include "Queue.h"
 
 int main()
 {
@@ -52,4 +53,44 @@ int main()
   }
 
   delete s;
+
+  // testing Queue
+  std::cout << "\n----- Testing Queue -----\n" << '\n';
+  Queue *q = new Queue();
+  std::cout << "Created Queue q" << '\n';
+  std::cout << "q->is_empty() == " << std::boolalpha << q->is_empty() << '\n';
+  try
+  {
+    std::cout << q->front() << '\n';
+  }
+  catch (int e)
+  {
+    std::cout << "Tried to call q->front(), but q is empty" << '\n';
+  }
+
+  std::cout << "\nTesting enqueue and front\n" << '\n';
+  q->enqueue(1);
+  std::cout << "After q->enqueue(1), q->front() == " << q->front() << '\n';
+  q->enqueue(2);
+  std::cout << "After q->enqueue(2), q->front() == " << q->front() << '\n';
+  q->enqueue(3);
+  q->enqueue(4);
+  q->enqueue(5);
+  std::cout << "Called q->enqueue(3), q->enqueue(4), q->enqueue(5)" << '\n';
+
+  //NOT WORKING
+  try
+  {
+    q->enqueue(6);
+  }
+  catch (int e)
+  {
+      std::cout << "Tried to call q->enqueue(6), but q->is_full() == " << std::boolalpha << q->is_full() << '\n';
+  }
+
+  std::cout << "\nTesting dequeue\n" << '\n';
+  std::cout << "q->dequeue() == " << q->dequeue() << '\n';
+  std::cout << "q->dequeue() == " << q->dequeue() << '\n';
+  std::cout << "q->dequeue() == " << q->dequeue() << '\n';
+
 }
