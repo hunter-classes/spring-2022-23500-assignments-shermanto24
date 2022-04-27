@@ -1,8 +1,10 @@
 #include <iostream>
 #include "Node.h"
+#include "BSTree.h"
 
 int main()
 {
+  // video 2
   Node *n = new Node(20);
   //std::cout << n->getData() << '\n';
   Node *n2 = new Node(30);
@@ -13,7 +15,7 @@ int main()
   //std::cout << n->getLeft()->getData() << '\n';
   //std::cout << n->getRight()->getData() << '\n';
 
-  // small assignment (my code)
+  // video 2 task
   Node *x1 = new Node(10);
   Node *x2 = new Node(20);
   Node *x3 = new Node(30);
@@ -30,10 +32,16 @@ int main()
   x5->setLeft(x6);
   x5->setRight(x7);
 
-  std::cout << "----- Printing the nodes by levels -----\n" << '\n';
+  std::cout << "Video 2 Task\n" << '\n';
   std::cout << "   " << x1->getData() << '\n';
   std::cout << x1->getLeft()->getData() << "    " << x1->getRight()->getData() << '\n';
   std::cout << x2->getLeft()->getData() << "   " << x5->getLeft()->getData()
      << " " << x5->getRight()->getData() << '\n';
   std::cout << x3->getLeft()->getData() << '\n';
+
+  // video 3-4
+  std::cout << "\nVideos 3-4\n" << '\n';
+  BSTree *t = new BSTree();
+  t->setup();
+  std::cout << t->get_debug_string() << '\n';
 }
