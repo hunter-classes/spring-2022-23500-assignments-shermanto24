@@ -40,8 +40,9 @@ int main()
   std::cout << x3->getLeft()->getData() << '\n';
 
   // video 3-4
-  std::cout << "\nVideos 3-4\n" << '\n';
+  std::cout << "\nVideo 5 Task\n" << '\n';
   BSTree *t = new BSTree();
   t->setup();
+  std::cout << "Testing get_debug_string" << '\n';
   std::cout << t->get_debug_string() << '\n';
 }
