@@ -16,14 +16,6 @@ void Queue::enqueue(int num)
 
   // add num to the end
   arr[tail%5] = num;
-  /*
-  if (tail == 4) //last elem
-  {
-    tail = 0; //wrap around
-    head++; //??
-  }
-    //do smth with head?
-  else*/
   tail++;
   num_elems++;
 }
@@ -37,12 +29,6 @@ int Queue::dequeue()
   //int front = arr[head];
   int front = arr[head%5];
   head++;
-  /*
-  if (head != 1) // if head == 1, it'll be empty
-    head++;
-  if (!is_empty()) // if empty, head should still be at index 0
-    head++;
-    */
   num_elems--;
   return front;
 }

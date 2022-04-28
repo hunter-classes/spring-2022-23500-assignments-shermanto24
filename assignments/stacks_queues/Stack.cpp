@@ -20,12 +20,6 @@ Stack::~Stack()
 
 void Stack::push(std::string str)
 {
-  /*
-  if () //full?
-  {
-    throw STACK_ERR_FULL;
-  }
-  */
   Node *new_node = new Node(str);
   new_node->setNext(head); //head-->...-->nullptr
                            //new_node-^
