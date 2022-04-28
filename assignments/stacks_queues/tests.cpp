@@ -23,12 +23,16 @@ TEST_CASE("push, top, and is_empty")
   CHECK(s->top() == "a");
 }
 
-TEST_CASE("pop: good cases")
+TEST_CASE("pop (and top): good cases")
 {
   CHECK(s->pop() == "a");
+  CHECK(s->top() == "b");
   CHECK(s->pop() == "b");
+  CHECK(s->top() == "c");
   CHECK(s->pop() == "c");
+  CHECK(s->top() == "d");
   CHECK(s->pop() == "d");
+  CHECK(s->top() == "e");
   CHECK(s->pop() == "e");
 }
 
