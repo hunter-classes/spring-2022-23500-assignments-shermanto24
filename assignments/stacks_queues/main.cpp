@@ -28,12 +28,9 @@ int main()
   std::cout << "After s->push(\"!\"), s->top() == " << s->top() << '\n';
 
   std::cout << "\nTesting pop\n" << '\n';
-  s->pop();
-  std::cout << "After s->pop(), s->top() == " << s->top() << '\n';
-  s->pop();
-  std::cout << "After s->pop(), s->top() == " << s->top() << '\n';
-  s->pop();
-  std::cout << "Called s->pop()\n" << '\n';
+  std::cout << "s->pop() == " << s->pop() << '\n';
+  std::cout << "s->pop() == " << s->pop() << '\n';
+  std::cout << "s->pop() == " << s->pop() << '\n';
 
   try
   {

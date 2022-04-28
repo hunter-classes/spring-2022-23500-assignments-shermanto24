@@ -25,15 +25,11 @@ TEST_CASE("push, top, and is_empty")
 
 TEST_CASE("pop: good cases")
 {
-  s->pop();
-  CHECK(s->top() == "b");
-  s->pop();
-  CHECK(s->top() == "c");
-  s->pop();
-  CHECK(s->top() == "d");
-  s->pop();
-  CHECK(s->top() == "e");
-  s->pop();
+  CHECK(s->pop() == "a");
+  CHECK(s->pop() == "b");
+  CHECK(s->pop() == "c");
+  CHECK(s->pop() == "d");
+  CHECK(s->pop() == "e");
 }
 
 TEST_CASE("top and pop exceptions")
