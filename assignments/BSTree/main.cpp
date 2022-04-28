@@ -39,7 +39,7 @@ int main()
      << " " << x5->getRight()->getData() << '\n';
   std::cout << x3->getLeft()->getData() << '\n';
 
-  // video 3-4
+  // video 5
   std::cout << "\nVideo 5 Task\n" << '\n';
   BSTree *t = new BSTree();
   t->setup();

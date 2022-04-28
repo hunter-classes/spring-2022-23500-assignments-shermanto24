@@ -68,17 +68,16 @@ int main()
     std::cout << "Tried to call q->front(), but q is empty" << '\n';
   }
 
-  std::cout << "\nTesting enqueue and front\n" << '\n';
+  std::cout << "\nTesting enqueue, front, and is_full\n" << '\n';
   q->enqueue(1);
   std::cout << "After q->enqueue(1), q->front() == " << q->front() << '\n';
+  std::cout << "q->is_empty() == " << std::boolalpha << q->is_empty() << '\n';
   q->enqueue(2);
   std::cout << "After q->enqueue(2), q->front() == " << q->front() << '\n';
   q->enqueue(3);
   q->enqueue(4);
   q->enqueue(5);
   std::cout << "Called q->enqueue(3), q->enqueue(4), q->enqueue(5)" << '\n';
-
-  //NOT WORKING
   try
   {
     q->enqueue(6);
@@ -92,5 +91,17 @@ int main()
   std::cout << "q->dequeue() == " << q->dequeue() << '\n';
   std::cout << "q->dequeue() == " << q->dequeue() << '\n';
   std::cout << "q->dequeue() == " << q->dequeue() << '\n';
-
+  q->enqueue(6);
+  std::cout << "After q->enqueue(6), q->front() == " << q->front() << '\n';
+  std::cout << "q->dequeue() == " << q->dequeue() << '\n';
+  std::cout << "q->dequeue() == " << q->dequeue() << '\n';
+  std::cout << "q->dequeue() == " << q->dequeue() << '\n';
+  try
+  {
+    std::cout << q->dequeue() << '\n';
+  }
+  catch (int e)
+  {
+    std::cout << "Tried to call q->dequeue(), but q->is_empty() == " << std::boolalpha << q->is_empty() << '\n';
+  }
 }
