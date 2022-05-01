@@ -194,3 +194,32 @@ int BSTree::rsearch(int value, Node *p)
   else
     return rsearch(value, p->getLeft());
 }
+
+void BSTree::rinsert(int value)
+{
+  rinsert(value, root);
+}
+
+void BSTree::rinsert(int value, Node *p)
+{
+  if (p == nullptr)
+    root = p;
+
+  int pval = p->getData();
+  Node *newnode = new Node(value);
+
+  if (value > pval)
+  {
+    if (p->getRight() == nullptr)
+      p->setRight(newnode);
+    else
+      rinsert(value, p->getRight());
+  }
+  else
+  {
+    if (p->getLeft() == nullptr)
+      p->setLeft(newnode);
+    else
+      rinsert(value, p->getLeft());
+  }
+}
