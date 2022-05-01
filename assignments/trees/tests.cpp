@@ -59,3 +59,51 @@ TEST_CASE("rsearch: value does not exist")
     CHECK(e == 1);
   }
 }
+
+TEST_CASE("rinsert: into t, which already has values")
+{
+  // inserting on the left side of a leaf
+  t->rinsert(1);
+  CHECK(t->rsearch(1) == 1);
+  t->rinsert(-10);
+  CHECK(t->rsearch(-10) == -10);
+
+  // inserting on the right side of a leaf
+  t->rinsert(9);
+  CHECK(t->rsearch(9) == 9);
+  t->rinsert(40);
+  CHECK(t->rsearch(40) == 40);
+}
+
+BSTree *t2 = new BSTree();
+
+TEST_CASE("rinsert: into t2, which starts off empty")
+{
+  // testing when root == nullptr
+  t2->rinsert(20);
+  CHECK(t2->rsearch(20) == 20);
+
+  // testing left and right
+  t2->rinsert(10);
+  CHECK(t2->rsearch(10) == 10);
+  t2->rinsert(5);
+  CHECK(t2->rsearch(5) == 5);
+
+  t2->rinsert(30);
+  CHECK(t2->rsearch(30) == 30);
+  t2->rinsert(35);
+  CHECK(t2->rsearch(35) == 35);
+}
+
+TEST_CASE("rinsert: value already exists in the tree")
+{
+  t->rinsert(1);
+  CHECK(t->rsearch(1) == 1);
+  t->rinsert(40);
+  CHECK(t->rsearch(40) == 40);
+
+  t2->rinsert(5);
+  CHECK(t2->rsearch(5) == 5);
+  t2->rinsert(30);
+  CHECK(t2->rsearch(30) == 30);
+}

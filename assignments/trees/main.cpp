@@ -30,4 +30,8 @@ int main()
   std::cout << "After t->rinsert(17), t = ";
   std::cout << t->get_debug_string() << '\n';
   std::cout << "t->rsearch(17) = " << t->rsearch(17) << '\n';
+
+  // generating random numbers and inserting them
+  // into a new BSTree t2
+  BSTree
 }

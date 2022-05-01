@@ -202,13 +202,19 @@ void BSTree::rinsert(int value)
 
 void BSTree::rinsert(int value, Node *p)
 {
-  if (p == nullptr)
-    root = p;
+  Node *newnode = new Node(value);
+  
+  if (root == nullptr)
+  {
+    root = newnode;
+    return;
+  }
 
   int pval = p->getData();
-  Node *newnode = new Node(value);
 
-  if (value > pval)
+  if (pval == value)
+    return;
+  else if (value > pval)
   {
     if (p->getRight() == nullptr)
       p->setRight(newnode);
