@@ -1,8 +1,12 @@
 #include <iostream>
 #include "BSTree.h"
+#include <cstdlib>
+#include <ctime>
 
 int main()
 {
+  srand(time(NULL));
+
   BSTree *t = new BSTree();
   t->setup();
   std::cout << "Created a BSTree t" << '\n';
@@ -33,5 +37,12 @@ int main()
 
   // generating random numbers and inserting them
   // into a new BSTree t2
-  BSTree
+  std::cout << "\n----- Inserting random values to trace -----\n" << '\n';
+  BSTree *t2 = new BSTree();
+  std::cout << "Created a BSTree t2" << '\n';
+
+  for (int i = 0; i < 10; i++)
+    t2->rinsert(rand()%100 + 1);
+
+  std::cout << "t2 = " << t2->get_debug_string() << '\n';
 }
