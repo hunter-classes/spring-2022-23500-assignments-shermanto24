@@ -2,7 +2,7 @@
 #include <iostream>
 #include <stdio.h>
 #include "Node.h"
-
+#define TREE_ERR_VALUE_NOT_FOUND 1
 
 class BSTree{
  private:
@@ -21,6 +21,9 @@ public:
 
   int search(int value);
   void insert(int value);
+
+  int rsearch(int value);
+  int rsearch(int value, Node *p);
 
   // int treesum();
   // int treesum(Node *n);

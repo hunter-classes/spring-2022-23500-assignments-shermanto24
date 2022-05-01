@@ -174,3 +174,23 @@ void BSTree::insert(int value){
 
   }
 }
+
+int BSTree::rsearch(int value)
+{
+  return rsearch(value, root);
+}
+
+int BSTree::rsearch(int value, Node *p)
+{
+  // base cases
+  if (p == nullptr)
+    throw TREE_ERR_VALUE_NOT_FOUND;
+  else if (p->getData() == value)
+    return value;
+
+  int pval = p->getData();
+  if (value > pval)
+    return rsearch(value, p->getRight());
+  else
+    return rsearch(value, p->getLeft());
+}
