@@ -2,6 +2,8 @@
 #include "doctest.h"
 #include "BSTree.h"
 
+// -------------------- PART 1 --------------------
+
 BSTree *t = new BSTree();
 
 TEST_CASE("rsearch: value exists")
@@ -106,4 +108,112 @@ TEST_CASE("rinsert: value already exists in the tree")
   CHECK(t2->rsearch(5) == 5);
   t2->rinsert(30);
   CHECK(t2->rsearch(30) == 30);
+}
+
+// -------------------- PART 2 --------------------
+
+BSTree *t3 = new BSTree();
+
+TEST_CASE("remove: leaf")
+{
+  t3->rinsert(10);
+
+  // left
+  t3->rinsert(5);
+  CHECK(t3->get_debug_string() == ", 5, , 10, ");
+
+  t3->remove(5);
+  CHECK(t3->get_debug_string() == ", 10, ");
+
+  // right
+  t3->rinsert(15);
+  CHECK(t3->get_debug_string() == ", 10, , 15, ");
+
+  t3->remove(15);
+  CHECK(t3->get_debug_string() == ", 10, ");
+}
+
+TEST_CASE("remove: leaf (root)")
+{
+  t3->remove(10);
+  CHECK(t3->get_debug_string() == "");
+}
+
+TEST_CASE("remove: node with one child")
+{
+  t3->rinsert(10);
+
+  // left child
+  t3->rinsert(5);
+  t3->rinsert(2);
+  t3->rinsert(3);
+  t3->rinsert(1);
+  CHECK(t3->get_debug_string() == ", 1, , 2, , 3, , 5, , 10, ");
+
+  t3->remove(5);
+  CHECK(t3->get_debug_string() == ", 1, , 2, , 3, , 10, ");
+
+  // right child
+  t3->rinsert(7);
+  t3->rinsert(4);
+  t3->rinsert(9);
+  CHECK(t3->get_debug_string() == ", 1, , 2, , 3, , 4, , 7, , 9, , 10, ");
+
+  t3->remove(3);
+  CHECK(t3->get_debug_string() == ", 1, , 2, , 4, , 7, , 9, , 10, ");
+}
+
+TEST_CASE("remove: node with one child (root)")
+{
+  t3->remove(10);
+  CHECK(t3->get_debug_string() == ", 1, , 2, , 4, , 7, , 9, ");
+}
+
+TEST_CASE("remove: node with two children")
+{
+  t3->rinsert(8);
+  t3->rinsert(15);
+  CHECK(t3->get_debug_string() == ", 1, , 2, , 4, , 7, , 8, , 9, , 15, ");
+
+  t3->remove(7);
+  CHECK(t3->get_debug_string() == ", 1, , 2, , 4, , 8, , 9, , 15, ");
+
+  t3->remove(9);
+  CHECK(t3->get_debug_string() == ", 1, , 2, , 4, , 8, , 15, ");
+}
+
+TEST_CASE("remove: node with two children (root)")
+{
+  t3->remove(2);
+  CHECK(t3->get_debug_string() == ", 1, , 4, , 8, , 15, ");
+}
+
+TEST_CASE("remove: value does not exist")
+{
+  try
+  {
+    t3->remove(10);
+  }
+  catch (int e)
+  {
+    CHECK(e == 1);
+  }
+
+  try
+  {
+    t3->remove(2);
+  }
+  catch (int e)
+  {
+    CHECK(e == 1);
+  }
+
+  try
+  {
+    t3->remove(100);
+  }
+  catch (int e)
+  {
+    CHECK(e == 1);
+  }
 }
