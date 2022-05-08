@@ -234,7 +234,7 @@ void BSTree::remove(int value)
 {
   Node *p = root;
   Node *trailer = nullptr;
-  Node *pleft, *pright, *newchild;
+  Node *pleft, *pright;
   int pval;
 
   while (p != nullptr)
@@ -252,6 +252,8 @@ void BSTree::remove(int value)
         delete p;
         p = nullptr;
 
+        Node *newchild;
+
         if (pleft == nullptr && pright == nullptr) // p is a leaf
           newchild = nullptr;
         else if (pleft != nullptr) // p only has left child
@@ -265,6 +267,22 @@ void BSTree::remove(int value)
           trailer->setRight(newchild);
         else // p is the left child of parent
           trailer->setLeft(newchild);
+      }
+      else // p has 2 children
+      {
+        Node *p2 = pleft; // left subtree
+        int max = p2->getData(); //p2 will never be nullptr here
+        // so it will always go into the while loop
+
+        while (p2 != nullptr)
+        {
+          // largest element in left subtree
+          max = p2->getData();
+          p2 = p2->getRight();
+        }
+
+        remove(max); // will have 0 or 1 children
+        p->setData(max);
       }
 
       return;
@@ -280,4 +298,8 @@ void BSTree::remove(int value)
       p = p->getLeft();
     }
   }
+  // here, this means that p = nullptr
+  // value to remove was never found
+  // or tree was empty to begin with
+  throw TREE_ERR_VALUE_NOT_FOUND;
 }

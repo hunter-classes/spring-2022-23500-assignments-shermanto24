@@ -5,6 +5,8 @@
 
 int main()
 {
+  std::cout << "-------------------- PART 1 --------------------\n\n" << '\n';
+
   srand(time(NULL));
 
   BSTree *t = new BSTree();
@@ -47,7 +49,9 @@ int main()
   std::cout << "t2 = " << t2->get_debug_string() << '\n';
 
   // testing part 2
-  std::cout << "\n\n-------------------- Part 2 --------------------\n\n" << '\n';
+  std::cout << "\n\n-------------------- PART 2 --------------------\n\n" << '\n';
+
+  std::cout << "----- Testing remove -----\n" << '\n';
 
   BSTree *t3 = new BSTree();
   std::cout << "Created a BSTree t3" << '\n';
@@ -58,9 +62,7 @@ int main()
   t3->rinsert(6);
   std::cout << "t3 = " << t3->get_debug_string() << '\n';
 
-  std::cout << "\n----- Testing remove -----\n" << '\n';
-
-  std::cout << "-- Removing a leaf --\n" << '\n';
+  std::cout << "\n-- Removing a leaf --\n" << '\n';
   t3->remove(6);
   std::cout << "Removing a leaf: after t3->remove(6)" << '\n';
   std::cout << "t3 = " << t3->get_debug_string() << '\n';
@@ -114,4 +116,26 @@ int main()
   std::cout << "Removing root when it has one (left) child: after t4->remove(150)" << '\n';
   std::cout << "t4 = " << t4->get_debug_string() << '\n';
 
+  std::cout << "\n-- Removing a node with two children --" << '\n';
+
+  t3->rinsert(11);
+  t3->rinsert(13);
+  t3->rinsert(14);
+  std::cout << "\nInserted 11, 13, and 14 into t3" << '\n';
+  std::cout << "t3 = " << t3->get_debug_string() << '\n';
+  t3->remove(15);
+  std::cout << "Removing a node with two children: after t3->remove(15)" << '\n';
+  std::cout << "t3 = " << t3->get_debug_string() << '\n';
+  t3->remove(10);
+  std::cout << "\nRemoving root (has two children): after t3->remove(10)" << '\n';
+  std::cout << "t3 = " << t3->get_debug_string() << '\n';
+
+  try
+  {
+    t3->remove(10);
+  }
+  catch (int e)
+  {
+    std::cout << "Tried calling t3->remove(10), but not found" << '\n';
+  }
 }
