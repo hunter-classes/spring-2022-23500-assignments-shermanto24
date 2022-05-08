@@ -21,7 +21,7 @@ int main()
   }
   catch (int e)
   {
-    std::cout << "Tried calling t->rsearch(1). but it's not in the tree" << '\n';
+    std::cout << "Tried calling t->rsearch(1). but not found" << '\n';
   }
 
   // testing rinsert
@@ -59,6 +59,8 @@ int main()
   std::cout << "t3 = " << t3->get_debug_string() << '\n';
 
   std::cout << "\n----- Testing remove -----\n" << '\n';
+
+  std::cout << "-- Removing a leaf --\n" << '\n';
   t3->remove(6);
   std::cout << "Removing a leaf: after t3->remove(6)" << '\n';
   std::cout << "t3 = " << t3->get_debug_string() << '\n';
@@ -70,4 +72,46 @@ int main()
   {
     std::cout << "Tried calling t3->rsearch(6), but not found" << '\n';
   }
+
+  std::cout << "\n-- Removing a node with one child --" << '\n';
+  t3->rinsert(6);
+  std::cout << "\nInserted 6 back into t3" << '\n';
+  std::cout << "t3 = " << t3->get_debug_string() << '\n';
+  t3->remove(5);
+  std::cout << "Removing a node with one (right) child: after t3->remove(5)" << '\n';
+  std::cout << "t3 = " << t3->get_debug_string() << '\n';
+  t3->rinsert(15);
+  t3->rinsert(12);
+  t3->rinsert(18);
+  std::cout << "\nInserted 15, 12, and 18 into t3" << '\n';
+  std::cout << "t3 = " << t3->get_debug_string() << '\n';
+  t3->remove(20);
+  std::cout << "Removing a node with one (left) child: after t3->remove(20)" << '\n';
+  std::cout << "t3 = " << t3->get_debug_string() << '\n';
+
+  std::cout << "\n-- Removing at root (is leaf or has one child) --" << '\n';
+  BSTree *t4 = new BSTree();
+  std::cout << "\nCreated a BSTree t4" << '\n';
+  t4->rinsert(100);
+  std::cout << "t4 = " << t4->get_debug_string() << '\n';
+  t4->remove(100);
+  std::cout << "Removing a leaf (root): after t4->remove(100)" << '\n';
+  std::cout << "t4 = " << t4->get_debug_string() << '\n';
+
+  t4->rinsert(100);
+  t4->rinsert(150);
+  std::cout << "\nInserted 100 and 150 into t4" << '\n';
+  std::cout << "t4 = " << t4->get_debug_string() << '\n';
+  t4->remove(100);
+  std::cout << "Removing root when it has one (right) child: after t4->remove(100)" << '\n';
+  std::cout << "t4 = " << t4->get_debug_string() << '\n';
+
+  t4->rinsert(50);
+  t4->rinsert(75);
+  std::cout << "\nInserted 50 and 75 into t4" << '\n';
+  std::cout << "t4 = " << t4->get_debug_string() << '\n';
+  t4->remove(150);
+  std::cout << "Removing root when it has one (left) child: after t4->remove(150)" << '\n';
+  std::cout << "t4 = " << t4->get_debug_string() << '\n';
+
 }

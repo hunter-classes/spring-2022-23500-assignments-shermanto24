@@ -233,42 +233,40 @@ void BSTree::rinsert(int value, Node *p)
 void BSTree::remove(int value)
 {
   Node *p = root;
-  Node *trailer;
+  Node *trailer = nullptr;
+  Node *pleft, *pright, *newchild;
   int pval;
 
   while (p != nullptr)
   {
     pval = p->getData();
+    pleft = p->getLeft();
+    pright = p->getRight();
 
     // we are at the node we want to delete
     if (pval == value)
     {
-      // p is a leaf
-      if (p->getLeft() == nullptr && p->getRight() == nullptr)
+      // p is a leaf or p has one child
+      if (pleft == nullptr || pright == nullptr)
       {
-        if (p == root) // trailer not initialized
-        {
-          // double check
-          delete p;
-          p = nullptr;
-        }
-        else
-        {
-          // p is the right child of the parent
-          if (value > trailer->getData())
-          {
-            delete p;
-            p = nullptr;
-            trailer->setRight(nullptr);
-          }
-          else // p is the left child
-          {
-            delete p;
-            p = nullptr;
-            trailer->setLeft(nullptr);
-          }
-        }
+        delete p;
+        p = nullptr;
+
+        if (pleft == nullptr && pright == nullptr) // p is a leaf
+          newchild = nullptr;
+        else if (pleft != nullptr) // p only has left child
+          newchild = pleft;
+        else // p only has right child
+          newchild = pright;
+
+        if (trailer == nullptr) // removing root
+          root = newchild;
+        else if (value > trailer->getData()) // p is the right child of parent
+          trailer->setRight(newchild);
+        else // p is the left child of parent
+          trailer->setLeft(newchild);
       }
+
       return;
     }
     else if (value > pval)
