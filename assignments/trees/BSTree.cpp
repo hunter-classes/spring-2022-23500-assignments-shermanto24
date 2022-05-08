@@ -203,7 +203,7 @@ void BSTree::rinsert(int value)
 void BSTree::rinsert(int value, Node *p)
 {
   Node *newnode = new Node(value);
-  
+
   if (root == nullptr)
   {
     root = newnode;
@@ -227,5 +227,59 @@ void BSTree::rinsert(int value, Node *p)
       p->setLeft(newnode);
     else
       rinsert(value, p->getLeft());
+  }
+}
+
+void BSTree::remove(int value)
+{
+  Node *p = root;
+  Node *trailer;
+  int pval;
+
+  while (p != nullptr)
+  {
+    pval = p->getData();
+
+    // we are at the node we want to delete
+    if (pval == value)
+    {
+      // p is a leaf
+      if (p->getLeft() == nullptr && p->getRight() == nullptr)
+      {
+        if (p == root) // trailer not initialized
+        {
+          // double check
+          delete p;
+          p = nullptr;
+        }
+        else
+        {
+          // p is the right child of the parent
+          if (value > trailer->getData())
+          {
+            delete p;
+            p = nullptr;
+            trailer->setRight(nullptr);
+          }
+          else // p is the left child
+          {
+            delete p;
+            p = nullptr;
+            trailer->setLeft(nullptr);
+          }
+        }
+      }
+      return;
+    }
+    else if (value > pval)
+    {
+      trailer = p;
+      p = p->getRight();
+    }
+    else
+    {
+      trailer = p;
+      p = p->getLeft();
+    }
   }
 }

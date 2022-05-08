@@ -22,11 +22,15 @@ public:
   int search(int value);
   void insert(int value);
 
+ // part 1
   int rsearch(int value);
   int rsearch(int value, Node *p);
 
   void rinsert(int value);
   void rinsert(int value, Node *p);
+
+  // part 2
+  void remove(int value);
 
   // int treesum();
   // int treesum(Node *n);

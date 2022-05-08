@@ -45,4 +45,29 @@ int main()
     t2->rinsert(rand()%100 + 1);
 
   std::cout << "t2 = " << t2->get_debug_string() << '\n';
+
+  // testing part 2
+  std::cout << "\n\n-------------------- Part 2 --------------------\n\n" << '\n';
+
+  BSTree *t3 = new BSTree();
+  std::cout << "Created a BSTree t3" << '\n';
+  t3->rinsert(10);
+  t3->rinsert(5);
+  t3->rinsert(20);
+  t3->rinsert(7);
+  t3->rinsert(6);
+  std::cout << "t3 = " << t3->get_debug_string() << '\n';
+
+  std::cout << "\n----- Testing remove -----\n" << '\n';
+  t3->remove(6);
+  std::cout << "Removing a leaf: after t3->remove(6)" << '\n';
+  std::cout << "t3 = " << t3->get_debug_string() << '\n';
+  try
+  {
+    std::cout << t3->rsearch(6) << '\n';
+  }
+  catch (int e)
+  {
+    std::cout << "Tried calling t3->rsearch(6), but not found" << '\n';
+  }
 }
