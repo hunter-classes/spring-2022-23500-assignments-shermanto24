@@ -224,7 +224,7 @@ BSTree *t4 = new BSTree();
 
 TEST_CASE("count_leaves")
 {
-  // root test
+  // empty tree
   CHECK(t4->count_leaves() == 0);
 
   // one node
@@ -256,4 +256,41 @@ TEST_CASE("count_leaves")
   CHECK(t4->count_leaves() == 5);
   t4->rinsert(15);
   CHECK(t4->count_leaves() == 6);
+}
+
+BSTree *t5 = new BSTree();
+
+TEST_CASE("get_height")
+{
+  // empty tree
+  CHECK(t5->get_height() == 0);
+
+  // one node
+  t5->rinsert(20);
+  CHECK(t5->get_height() == 1);
+
+  // adding other nodes
+  t5->rinsert(10);
+  CHECK(t5->get_height() == 2);
+  t5->rinsert(30);
+  CHECK(t5->get_height() == 2);
+
+  // nodes at level 3 (1st level being the root)
+  t5->rinsert(25);
+  CHECK(t5->get_height() == 3);
+  t5->rinsert(15);
+  CHECK(t5->get_height() == 3);
+  t5->rinsert(5);
+  CHECK(t5->get_height() == 3);
+  t5->rinsert(35);
+  CHECK(t5->get_height() == 3);
+
+  t5->rinsert(40);
+  CHECK(t5->get_height() == 4);
+  t5->rinsert(37);
+  CHECK(t5->get_height() == 5);
+  t5->rinsert(12);
+  CHECK(t5->get_height() == 5);
+  t5->rinsert(38);
+  CHECK(t5->get_height() == 6);
 }
