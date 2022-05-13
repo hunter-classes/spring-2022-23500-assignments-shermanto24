@@ -39,6 +39,7 @@ public:
 
   int count_leaves(Node *p);
   int count_leaves();
-  
+
+  int get_height(Node *p);
   int get_height();
 };

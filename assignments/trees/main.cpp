@@ -141,6 +141,7 @@ int main()
 
   // testing part 3
   std::cout << "\n\n-------------------- PART 3 --------------------\n\n" << '\n';
+  std::cout << "----- Testing count_leaves -----\n" << '\n';
 
   BSTree *t5 = new BSTree();
   std::cout << "Created a BSTree t5" << '\n';
@@ -159,4 +160,7 @@ int main()
   std::cout << "t5 = " << t5->get_debug_string() << '\n';
 
   std::cout << "t5->count_leaves() = " << t5->count_leaves() << " (correct)"<< '\n';
+
+  std::cout << "\n----- Testing get_height -----\n" << '\n';
+  std::cout << "t5->get_height() = " << t5->get_height() << '\n';
 }

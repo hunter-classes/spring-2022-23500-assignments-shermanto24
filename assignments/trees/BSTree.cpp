@@ -324,7 +324,21 @@ int BSTree::count_leaves()
   return count_leaves(root);
 }
 
+int BSTree::get_height(Node *p)
+{
+  if (p == nullptr)
+    return 0;
+
+  int left_height = 1 + get_height(p->getLeft());
+  int right_height = 1 + get_height(p->getRight());
+
+  if (left_height > right_height)
+    return left_height;
+  else
+    return right_height;
+}
+
 int BSTree::get_height()
 {
-  
+  return get_height(root);
 }
