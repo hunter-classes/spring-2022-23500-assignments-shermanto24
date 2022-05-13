@@ -217,3 +217,43 @@ TEST_CASE("remove: value does not exist")
     CHECK(e == 1);
   }
 }
+
+// -------------------- PART 3 --------------------
+
+BSTree *t4 = new BSTree();
+
+TEST_CASE("count_leaves")
+{
+  // root test
+  CHECK(t4->count_leaves() == 0);
+
+  // one node
+  t4->rinsert(10);
+  CHECK(t4->count_leaves() == 1);
+
+  // left leaf
+  t4->rinsert(5);
+  CHECK(t4->count_leaves() == 1);
+
+  // left + right leaf
+  t4->rinsert(20);
+  CHECK(t4->count_leaves() == 2);
+
+  // adding more nodes
+  t4->rinsert(2);
+  CHECK(t4->count_leaves() == 2);
+  t4->rinsert(7);
+  CHECK(t4->count_leaves() == 3);
+  t4->rinsert(1);
+  CHECK(t4->count_leaves() == 3);
+  t4->rinsert(3);
+  CHECK(t4->count_leaves() == 4);
+  t4->rinsert(25);
+  CHECK(t4->count_leaves() == 4);
+  t4->rinsert(30);
+  CHECK(t4->count_leaves() == 4);
+  t4->rinsert(22);
+  CHECK(t4->count_leaves() == 5);
+  t4->rinsert(15);
+  CHECK(t4->count_leaves() == 6);
+}
