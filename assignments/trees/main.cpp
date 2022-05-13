@@ -138,4 +138,25 @@ int main()
   {
     std::cout << "Tried calling t3->remove(10), but not found" << '\n';
   }
+
+  // testing part 3
+  std::cout << "\n\n-------------------- PART 3 --------------------\n\n" << '\n';
+
+  BSTree *t5 = new BSTree();
+  std::cout << "Created a BSTree t5" << '\n';
+  std::cout << "t5->count_leaves() = " << t5->count_leaves() << '\n';
+
+  t5->rinsert(10);
+  t5->rinsert(5);
+  t5->rinsert(2);
+  t5->rinsert(7);
+  t5->rinsert(1);
+  t5->rinsert(20);
+  t5->rinsert(15);
+  t5->rinsert(25);
+  t5->rinsert(17);
+  std::cout << "\nAfter adding items to t5," << '\n';
+  std::cout << "t5 = " << t5->get_debug_string() << '\n';
+
+  std::cout << "t5->count_leaves() = " << t5->count_leaves() << " (correct)"<< '\n';
 }

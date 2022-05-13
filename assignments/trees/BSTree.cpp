@@ -303,3 +303,28 @@ void BSTree::remove(int value)
   // or tree was empty to begin with
   throw TREE_ERR_VALUE_NOT_FOUND;
 }
+
+int BSTree::count_leaves(Node *p)
+{
+  // base case
+  if (p == nullptr)
+    return 0;
+  else if (p->getLeft() == nullptr && p->getRight() == nullptr)
+    return 1;
+
+  // otherwise
+  int total = 0;
+  total += count_leaves(p->getLeft());
+  total += count_leaves(p->getRight());
+  return total;
+}
+
+int BSTree::count_leaves()
+{
+  return count_leaves(root);
+}
+
+int BSTree::get_height()
+{
+  
+}

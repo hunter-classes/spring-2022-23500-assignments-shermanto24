@@ -37,4 +37,8 @@ public:
   // int searchr(int value);
   // int searchr(int value, Node *n);
 
+  int count_leaves(Node *p);
+  int count_leaves();
+  
+  int get_height();
 };
