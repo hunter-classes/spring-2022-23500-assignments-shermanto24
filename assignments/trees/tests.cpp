@@ -294,3 +294,39 @@ TEST_CASE("get_height")
   t5->rinsert(38);
   CHECK(t5->get_height() == 6);
 }
+
+TEST_CASE("get_sum_at: valid sums")
+{
+  // full levels
+  CHECK(t5->get_sum_at(1) == 20);
+  CHECK(t5->get_sum_at(2) == 10 + 30);
+  CHECK(t5->get_sum_at(3) == 5 + 15 + 25 + 35);
+
+  // levels with holes
+  CHECK(t5->get_sum_at(4) == 12 + 40);
+  CHECK(t5->get_sum_at(5) == 37);
+  CHECK(t5->get_sum_at(6) == 38);
+}
+
+TEST_CASE("get_sums_at: invalid sums")
+{
+  // level <= 0
+  try
+  {
+    t5->get_sum_at(-1);
+  }
+  catch (int e)
+  {
+    CHECK(e == 2);
+  }
+
+  // level > height
+  try
+  {
+    t5->get_sum_at(7);
+  }
+  catch (int e)
+  {
+    CHECK(e == 2);
+  }
+}
