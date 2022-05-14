@@ -342,3 +342,25 @@ int BSTree::get_height()
 {
   return get_height(root);
 }
+
+// given that the level with the root is level 1
+// this function computes the sum at level
+int BSTree::get_sum_at(int level, int curr_level, Node *p)
+{
+  if (p == nullptr) // p->getLeft() and right could be nullptr but at level
+    return 0;
+  else if (level == curr_level) // if we are at the level
+    return p->getData();
+  else if (level <= 0 || level > get_height()) // level is invalid
+    throw TREE_ERR_INVALID_LEVEL;
+
+  // otherwise
+  int left_sum = get_sum_at(level, curr_level + 1, p->getLeft());
+  int right_sum = get_sum_at(level, curr_level + 1, p->getRight());
+  return left_sum + right_sum;
+}
+
+int BSTree::get_sum_at(int level)
+{
+  return get_sum_at(level, 1, root);
+}

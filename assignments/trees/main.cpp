@@ -162,5 +162,28 @@ int main()
   std::cout << "t5->count_leaves() = " << t5->count_leaves() << " (correct)"<< '\n';
 
   std::cout << "\n----- Testing get_height -----\n" << '\n';
-  std::cout << "t5->get_height() = " << t5->get_height() << '\n';
+  std::cout << "t5->get_height() = " << t5->get_height() << " (correct)" << '\n';
+
+  std::cout << "\n----- Testing get_sum_at -----\n" << '\n';
+  std::cout << "Valid sum examples" << '\n';
+  std::cout << "t5->get_sum_at(2) = " << t5->get_sum_at(2) << " (full level)" << '\n';
+  std::cout << "t5->get_sum_at(4) = " << t5->get_sum_at(4) << " (level with holes)" << '\n';
+
+  std::cout << "\nInvalid sum examples" << '\n';
+  try
+  {
+    t5->get_sum_at(0);
+  }
+  catch (int e)
+  {
+    std::cout << "Tried calling t5->get_sum_at(0), but level invalid (<= 0)" << '\n';
+  }
+  try
+  {
+    t5->get_sum_at(5);
+  }
+  catch (int e)
+  {
+    std::cout << "Tried calling t5->get_sum_at(5), but level invalid (> height = 4)" << '\n';
+  }
 }
