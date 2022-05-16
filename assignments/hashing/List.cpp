@@ -138,6 +138,11 @@ std::string List::toString(){
     result = result + walker->getData()->get_name() + "->";
     walker = walker->getNext();
   }
-  result = result + "null";
+  //result = result + "null";
   return result;
+}
+
+Node* List::get_head()
+{
+  return head;
 }

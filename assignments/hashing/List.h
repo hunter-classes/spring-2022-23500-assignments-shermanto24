@@ -19,5 +19,6 @@ class List{
   int length();
 
   std::string toString(); // for testing and debugging
-
+  
+  Node* get_head();
 };
